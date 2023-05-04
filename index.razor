@@ -9,3 +9,36 @@
 </body>
  
 </html>
+
+@code {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthorization();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapRazorPages();
+        });
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddRazorPages();
+    }
+
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+
+            
+}
